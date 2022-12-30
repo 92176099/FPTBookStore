@@ -1,0 +1,197 @@
+﻿@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@using FPTBookStore.Models
+@model dynamic
+@{
+    Layout = "~/Views/Shared/User/_Layout.cshtml";
+}
+
+<section id="best-selling" class="leaf-pattern-overlay">
+    <div class="corner-pattern-overlay"></div>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-8 col-md-offset-2">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <figure class="products-thumb">
+                            <img src="~/images/@Model.BestSell.BookImage"
+                                 asp-append-version="true" alt="book" class="single-image">
+                        </figure>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="product-entry">
+                            <h2 class="section-title divider">Best Selling Book</h2>
+
+                            <div class="products-content">
+                                <div class="author-name">By @Model.BestSell.BookAuthor</div>
+                                <h3 class="item-title">@Model.BestSell.BookName</h3>
+                                <p style="
+								overflow: hidden;
+								   display: -webkit-box;
+   -webkit-line-clamp: 4;
+           line-clamp: 4;
+   -webkit-box-orient: vertical; ">@Model.BestSell.BookDescription</p>
+                                <div class="item-price">$ @Model.BestSell.BookPrice</div>
+                                <div class="btn-wrap">
+                                    <a href="#" class="btn-accent-arrow">shop it now <i class="icon icon-ns-arrow-right"></i></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- / row -->
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="popular-books" class="bookshelf">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="section-header align-center">
+                    <div class="title">
+                        <span>Some quality items</span>
+                    </div>
+                    <h2 class="section-title">New Books</h2>
+                </div>
+
+                <ul class="tabs">
+                    <li data-tab-target="#all-genre" class="active tab">All Genre</li>
+                    <li data-tab-target="#business" class="tab">Business</li>
+                    <li data-tab-target="#romantic" class="tab">Romantic</li>
+                    <li data-tab-target="#fantasy" class="tab">Fantasy</li>
+                    <li data-tab-target="#comic" class="tab">Comic</li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="all-genre" data-tab-content class="active">
+                        <div class="row">
+                            @foreach (var item in Model.AllGenres)
+                            {
+                                <div class="col-md-3">
+                                    <figure class="product-style">
+                                        <img src="~/images/@item.BookImage" alt="Books" class="product-item" asp-append-version="true">
+                                        <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+                                        
+                                            <figcaption>
+                                                <a asp-controller="Books"  asp-action="Single" asp-route-id="@item.BookId" style="text-decoration:none">
+                                                <h3>@item.BookName</h3>
+                                                <p>@item.BookAuthor</p>
+                                                <div class="item-price">$ @item.BookPrice</div>
+                                                 </a>
+                                            </figcaption>
+                                       
+                                    </figure>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div id="business" data-tab-content>
+                        <div class="row">
+                            @foreach (var item in Model.Business)
+                            {
+                                <div class="col-md-3">
+                                    <figure class="product-style">
+                                        <img src="~/images/@item.BookImage" alt="Books" class="product-item" asp-append-version="true">
+                                        <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+                                       
+                                        <figcaption>
+                                             <a asp-controller="Books"  asp-action="Single" asp-route-id="@item.BookId" style="text-decoration:none">  
+                                            <h3>@item.BookName</h3>
+                                            <p>@item.BookAuthor</p>
+                                            <div class="item-price">$ @item.BookPrice</div>
+                                             </a>
+                                        </figcaption>
+                                       
+                                    </figure>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div id="romantic" data-tab-content>
+                        <div class="row">
+                            @foreach (var item in Model.Romantic)
+                            {
+                                <div class="col-md-3">
+                                    <figure class="product-style">
+                                        <img src="~/images/@item.BookImage" alt="Books" class="product-item" asp-append-version="true">
+                                        <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+                                       
+                                        <figcaption>
+                                              <a asp-controller="Books"  asp-action="Single" asp-route-id="@item.BookId" style="text-decoration:none">
+                                            <h3>@item.BookName</h3>
+                                            <p>@item.BookAuthor</p>
+                                            <div class="item-price">$ @item.BookPrice</div>
+                                            </a>
+                                        </figcaption>
+                                        
+                                    </figure>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div id="fantasy" data-tab-content>
+                        <div class="row">
+                            @foreach (var item in Model.Fantasy)
+                            {
+                                <div class="col-md-3">
+                                    <figure class="product-style">
+                                        <img src="~/images/@item.BookImage" alt="Books" class="product-item" asp-append-version="true">
+                                        <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+                                    
+                                        <figcaption>
+                                                <a asp-controller="Books"  asp-action="Single" asp-route-id="@item.BookId" style="text-decoration:none">
+                                            <h3>@item.BookName</h3>
+                                            <p>@item.BookAuthor</p>
+                                            <div class="item-price">$ @item.BookPrice</div>
+                                            </a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div id="comic" data-tab-content>
+                        <div class="row">
+                            @foreach (var item in Model.Comic)
+                            {
+                                <div class="col-md-3">
+                                    <figure class="product-style">
+                                        <img src="~/images/@item.BookImage" alt="Books" class="product-item" asp-append-version="true">
+                                        <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+                                       
+                                        <figcaption>
+                                             <a asp-controller="Books"  asp-action="Single" asp-route-id="@item.BookId" style="text-decoration:none">
+                                            <h3>@item.BookName</h3>
+                                            <p>@item.BookAuthor</p>
+                                            <div class="item-price">$ @item.BookPrice</div>
+                                            </a>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+            </div><!--inner-tabs-->
+
+        </div>
+    </div>
+</section>
+

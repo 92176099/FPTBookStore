@@ -1,0 +1,104 @@
+﻿@model IEnumerable<FPTBookStore.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPages;
+    }
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Stock
+            </th>
+            <th>
+                Sells
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/images/@item.BookImage"
+                     height="60" width="40"
+                     asp-append-version="true" />
+                    @Html.DisplayFor(modelItem => item.BookName)
+                </td>
+                <td style=" 
+  width: 400px;
+  line-height: 1.2em;">
+                    @Html.DisplayFor(modelItem => item.BookDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookAuthor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookPrice)
+                </td>
+                <td>
+                    @foreach(var genre in ViewBag.Genres)
+                    {
+                        if (genre.GenreId == item.GenreId)
+                        {
+                             <div>@genre.GenreName</div>
+                        }
+                    }
+             
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookStock)
+                </td>
+                     <td>
+                    @Html.DisplayFor(modelItem => item.BookSells)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="container">
+    @if (pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge==pager.CurrentPages ? "active":"")">
+                    <a class="page-link" asp-controller="Books" asp-action="Index" asp-route-pg="@pge">@pge</a>
+                </li>
+            }
+        </ul>
+    }
+</div>

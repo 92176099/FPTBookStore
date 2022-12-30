@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Shared/User/_Layout.cshtml";
+}
+@model IEnumerable<FPTBookStore.Models.Book>
+@{
+    ViewData["Title"] = "Shop";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPages;
+    }
+}
+
+<section class="padding-large">
+    <div class="container">
+        <div class="row">
+
+            <div class="products-grid grid">
+                @foreach (var item in Model)
+                {
+                     
+                    <figure class="product-style">
+                        <img src="~/images/@item.BookImage" alt="Books" class="product-item" asp-append-version="true">
+                        <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+                      
+                        <a asp-action="Single" asp-route-id="@item.BookId" style="text-decoration:none">  
+                            <figcaption>
+                            <h3>@item.BookName</h3>
+                            <p>@item.BookAuthor</p>
+                            <div class="item-price">$ @item.BookPrice</div>
+                        </figcaption></a>
+                    </figure>
+                }
+
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+    @if (pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge==pager.CurrentPages ? "active":"")">
+                    <a class="page-link" asp-controller="Books" asp-action="Shop" asp-route-pg="@pge">@pge</a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+</section>
+
